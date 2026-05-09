@@ -1,3 +1,5 @@
+using System.Runtime.ExceptionServices;
+
 public static class Arrays
 {
     /// <summary>
@@ -8,12 +10,20 @@ public static class Arrays
     /// <returns>array of doubles that are the multiples of the supplied number</returns>
     public static double[] MultiplesOf(double number, int length)
     {
-        // TODO Problem 1 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+        //Create an array for multiples to be saved
+        double[] numberArray = new double [length];
 
-        return []; // replace this return statement with your own
+        //Create a for loop to go through every number up to the length
+        for (int i = 1; i <= length; ++i)
+        {
+            //Multiply both numbers
+            double newNumber = number * i;
+
+            //Append the multiple of the given number to the array
+            numberArray[i - 1] = newNumber;
+        }
+        //Return the Array
+        return numberArray; // replace this return statement with your own
     }
 
     /// <summary>
@@ -29,5 +39,19 @@ public static class Arrays
         // Remember: Using comments in your program, write down your process for solving this problem
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
+        //Create a list of the numbers that must go first
+        List<int> numbersToFirst = data.GetRange(data.Count - amount, amount);
+
+        //Create a list of the numbers that must go last
+        List<int> numbersToLast = data.GetRange(0, data.Count -amount);
+        
+        for (int index = 0; index < numbersToFirst.Count; ++index)
+        {
+            data[index] = numbersToFirst[index];
+        }
+        for (int secondPartIndex = 0; secondPartIndex < numbersToLast.Count; ++secondPartIndex)
+        {
+            data[secondPartIndex + numbersToFirst.Count] = numbersToLast[secondPartIndex];
+        }
     }
 }
