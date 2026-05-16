@@ -6,24 +6,57 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 public class PriorityQueueTests
 {
     [TestMethod]
-    // Scenario: 
-    // Expected Result: 
-    // Defect(s) Found: 
+    // Scenario: Try adding an Item
+    // Expected Result: Item should be added
+    // Defect(s) Found: No defects
     public void TestPriorityQueue_1()
     {
         var priorityQueue = new PriorityQueue();
-        Assert.Fail("Implement the test case and then remove this.");
+        priorityQueue.Enqueue("Computer", 203);
+        var item = priorityQueue.Dequeue();
+        Assert.AreEqual("Computer", item);
+        
+    }
+
+    [TestMethod]
+    // Scenario: Check to see if Dequeue gets the higher priority item
+    // Expected Result: Phone gets dequeued
+    // Defect(s) Found: Phone expected but is Computer
+    public void TestPriorityQueue_2()
+    {
+        var priorityQueue = new PriorityQueue();
+        priorityQueue.Enqueue("Computer", 203);
+        priorityQueue.Enqueue("Phone", 333);
+        var item = priorityQueue.Dequeue();
+        Assert.AreEqual("Phone", item);
+    }
+
+    // Add more test cases as needed below.
+
+    [TestMethod]
+    // Scenario: If there are more than 1 item with the same priority, the first one gets dequeued
+    // Expected Result: 
+    // Defect(s) Found: 
+    public void TestPriorityQueue_3()
+    {
+        var priorityQueue = new PriorityQueue();
+        priorityQueue.Enqueue("Computer", 203);
+        priorityQueue.Enqueue("Phone", 333);
+        priorityQueue.Enqueue("Ipad", 333);
+        var item = priorityQueue.Dequeue();
+        Assert.AreEqual("Phone", item);
     }
 
     [TestMethod]
     // Scenario: 
     // Expected Result: 
     // Defect(s) Found: 
-    public void TestPriorityQueue_2()
+    public void TestPriorityQueue_4()
     {
         var priorityQueue = new PriorityQueue();
-        Assert.Fail("Implement the test case and then remove this.");
+        Assert.ThrowsException<InvalidOperationException>(() =>
+        {
+            priorityQueue.Dequeue();
+        });
     }
-
-    // Add more test cases as needed below.
 }

@@ -1,4 +1,6 @@
-﻿/// <summary>
+﻿using System.ComponentModel;
+
+/// <summary>
 /// Maintain a Customer Service Queue.  Allows new customers to be 
 /// added and allows customers to be serviced.
 /// </summary>
@@ -11,24 +13,55 @@ public class CustomerService {
         // Test Cases
 
         // Test 1
-        // Scenario: 
-        // Expected Result: 
+        // Scenario: Can I add a new Customer and create a list of 4 customers?
+        // Expected Result: Created list of 10 customers, new customer added. Should display list of customers in Line
         Console.WriteLine("Test 1");
+        var customerService = new CustomerService(4);
+        customerService.AddNewCustomer();
+        Console.WriteLine($"Customers in line: {customerService}");
+        
 
         // Defect(s) Found: 
 
         Console.WriteLine("=================");
 
         // Test 2
-        // Scenario: 
-        // Expected Result: 
+        // Scenario: Receive more customers and serve some, but getting to full capacity and not being able to accept more
+        // Expected Result: Full list displayed after adding customers, served customer info displayed when served and error when line is full capacity
         Console.WriteLine("Test 2");
+        customerService = new CustomerService(4);
+        customerService.AddNewCustomer();
+        customerService.AddNewCustomer();
+        customerService.AddNewCustomer();
+        Console.WriteLine($"Customers in line: {customerService}");
+        customerService.ServeCustomer();
+        customerService.ServeCustomer();
+        Console.WriteLine($"After Serving Customer: {customerService}");
+        customerService.AddNewCustomer();
+        customerService.AddNewCustomer();
+        customerService.AddNewCustomer();
+        customerService.AddNewCustomer();
+        Console.WriteLine($"Customers in line: {customerService}");
 
-        // Defect(s) Found: 
+
+
+
+        // Defect(s) Found: No error message is displayed when trying to add one more customer than capacity
 
         Console.WriteLine("=================");
 
+
         // Add more Test Cases As Needed Below
+        // Test 3
+        // Scenario:  Try serving from an empty List
+        // Expected Result: Error Message should be displayed
+        Console.WriteLine("Test 3");
+        customerService = new CustomerService(3);
+        customerService.ServeCustomer();
+
+        // Defect(s) Found: Need to display error message
+
+        Console.WriteLine("=================");
     }
 
     private readonly List<Customer> _queue = new();
@@ -67,30 +100,40 @@ public class CustomerService {
     /// </summary>
     private void AddNewCustomer() {
         // Verify there is room in the service queue
-        if (_queue.Count > _maxSize) {
+        if (_queue.Count == _maxSize) {
             Console.WriteLine("Maximum Number of Customers in Queue.");
             return;
+        } else
+        {
+            Console.Write("Customer Name: ");
+            var name = Console.ReadLine()!.Trim();
+            Console.Write("Account Id: ");
+            var accountId = Console.ReadLine()!.Trim();
+            Console.Write("Problem: ");
+            var problem = Console.ReadLine()!.Trim();
+
+            // Create the customer object and add it to the queue
+            var customer = new Customer(name, accountId, problem);
+            _queue.Add(customer);
         }
 
-        Console.Write("Customer Name: ");
-        var name = Console.ReadLine()!.Trim();
-        Console.Write("Account Id: ");
-        var accountId = Console.ReadLine()!.Trim();
-        Console.Write("Problem: ");
-        var problem = Console.ReadLine()!.Trim();
-
-        // Create the customer object and add it to the queue
-        var customer = new Customer(name, accountId, problem);
-        _queue.Add(customer);
+        
     }
 
     /// <summary>
     /// Dequeue the next customer and display the information.
     /// </summary>
     private void ServeCustomer() {
-        _queue.RemoveAt(0);
+        if (_queue.Count == 0)
+        {
+            Console.WriteLine("No customers to Serve");
+        } else
+        {
+            _queue.RemoveAt(0);
         var customer = _queue[0];
         Console.WriteLine(customer);
+        }
+        
     }
 
     /// <summary>
