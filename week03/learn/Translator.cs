@@ -25,6 +25,16 @@ public class Translator
     public void AddWord(string fromWord, string toWord)
     {
         // ADD YOUR CODE HERE
+        if (!_words.ContainsKey(fromWord))
+        {
+            _words.Add(fromWord, toWord);
+            Console.WriteLine("Word was successfully added");
+        }
+        else
+        {
+            Console.WriteLine("Word has been added already");
+        }
+        
     }
 
     /// <summary>
@@ -35,6 +45,13 @@ public class Translator
     public string Translate(string fromWord)
     {
         // ADD YOUR CODE HERE
-        return "";
+        if (!_words.ContainsKey(fromWord))
+        {
+            return "???";
+            
+        } else
+        {
+            return _words[fromWord];
+        }
     }
 }
