@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 // TODO Problem 2 - Write and run test cases and fix the code to match requirements.
@@ -6,15 +7,24 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 public class PriorityQueueTests
 {
     [TestMethod]
-    // Scenario: Try adding an Item
-    // Expected Result: Item should be added
-    // Defect(s) Found: No defects
+    // Scenario: Try adding an item to the Queue.
+    // Expected Result: Phone, Laptop, Computer
+    // Defect(s) Found: Dequeue does not remove the item from the list. It only returns it
     public void TestPriorityQueue_1()
     {
         var priorityQueue = new PriorityQueue();
         priorityQueue.Enqueue("Computer", 203);
-        var item = priorityQueue.Dequeue();
-        Assert.AreEqual("Computer", item);
+        priorityQueue.Enqueue("Phone", 223);
+        priorityQueue.Enqueue("Laptop", 213);
+        List<string> expectedResult = ["Phone", "Laptop", "Computer"];
+        for (int i = 0; i < 3; ++i)
+        {
+            var item = priorityQueue.Dequeue();
+            
+            var expectedItem = expectedResult[i];
+            Assert.AreEqual(expectedItem, item);
+        }
+        
         
     }
 
@@ -35,8 +45,8 @@ public class PriorityQueueTests
 
     [TestMethod]
     // Scenario: If there are more than 1 item with the same priority, the first one gets dequeued
-    // Expected Result: 
-    // Defect(s) Found: 
+    // Expected Result: Phone
+    // Defect(s) Found: Item did not get dequeued from the queue.
     public void TestPriorityQueue_3()
     {
         var priorityQueue = new PriorityQueue();
@@ -48,9 +58,9 @@ public class PriorityQueueTests
     }
 
     [TestMethod]
-    // Scenario: 
-    // Expected Result: 
-    // Defect(s) Found: 
+    // Scenario: If the queue is empty, then an error exception shall be thrown. 
+    // Expected Result: The queue is empty
+    // Defect(s) Found: No defects found
     public void TestPriorityQueue_4()
     {
         var priorityQueue = new PriorityQueue();

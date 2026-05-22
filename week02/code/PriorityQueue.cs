@@ -20,6 +20,7 @@
         if (_queue.Count == 0) // Verify the queue is not empty
         {
             throw new InvalidOperationException("The queue is empty.");
+            
         }
 
         // Find the index of the item with the highest priority to remove
@@ -35,6 +36,7 @@
 
         // Remove and return the item with the highest priority
         var value = _queue[highPriorityIndex].Value;
+        _queue.RemoveAt(highPriorityIndex);
         return value;
     }
 

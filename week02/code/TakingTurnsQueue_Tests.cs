@@ -85,7 +85,7 @@ public class TakingTurnsQueueTests
     // Scenario: Create a queue with the following people and turns: Bob (2), Tim (Forever), Sue (3)
     // Run 10 times.
     // Expected Result: Bob, Tim, Sue, Bob, Tim, Sue, Tim, Sue, Tim, Tim
-    // Defect(s) Found: Se esperaba <Bob>, pero es <Sue>. y luego Se esperaba <Tim>, pero es <Sue>. 
+    // Defect(s) Found: The first name should be Bob, but is was Sue. Then Tim was expected but it was Sue. 
     public void TestTakingTurnsQueue_ForeverZero()
     {
         var timTurns = 0;
@@ -116,7 +116,7 @@ public class TakingTurnsQueueTests
     // Scenario: Create a queue with the following people and turns: Tim (Forever), Sue (3)
     // Run 10 times.
     // Expected Result: Tim, Sue, Tim, Sue, Tim, Sue, Tim, Tim, Tim, Tim
-    // Defect(s) Found: Se esperaba <Tim>, pero es <Sue>.
+    // Defect(s) Found: Tim should have been the first, but it was Sue
     public void TestTakingTurnsQueue_ForeverNegative()
     {
         var timTurns = -3;
