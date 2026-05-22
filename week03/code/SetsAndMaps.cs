@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json;
 
 public static class SetsAndMaps
@@ -22,7 +23,27 @@ public static class SetsAndMaps
     public static string[] FindPairs(string[] words)
     {
         // TODO Problem 1 - ADD YOUR CODE HERE
-        return [];
+        var set = new HashSet<string> ();
+        var finalSet = new HashSet<string> ();
+        foreach (var word in words)
+        {
+            
+            //Reverse the Word
+            var wordArray = word.ToArray();
+            Array.Reverse(wordArray);
+
+            var reverseWord = new string(wordArray);
+            if (word != reverseWord)
+            {
+                set.Add(word);
+                if (set.Contains(reverseWord))
+                {
+                    finalSet.Add($"{word} & {reverseWord}");
+                }
+            }
+        
+        }
+        return finalSet.ToArray();
     }
 
     /// <summary>
@@ -43,6 +64,15 @@ public static class SetsAndMaps
         {
             var fields = line.Split(",");
             // TODO Problem 2 - ADD YOUR CODE HERE
+            //Get Degree Name
+            var degreeName = fields[3];
+            if (degrees.ContainsKey(degreeName))
+            {
+                degrees[degreeName] ++;
+            } else
+            {
+                degrees[degreeName] = 1;
+            }
         }
 
         return degrees;
@@ -67,6 +97,26 @@ public static class SetsAndMaps
     public static bool IsAnagram(string word1, string word2)
     {
         // TODO Problem 3 - ADD YOUR CODE HERE
+        //Get letter count and check if are equal
+        //Lowercase all letters and take spaces out
+        var word1L = word1.Replace(" ", "").ToLower();
+        var word2L = word2.Replace(" ", "").ToLower();
+        if (word1L.Count() == word2L.Count())
+        {
+            char[] char1Array = word1L.ToCharArray(); 
+            char[] char2Array = word2L.ToCharArray(); 
+            
+            Array.Sort(char1Array);
+            Array.Sort(char2Array);
+            
+            string sortedWord1 = new string(char1Array);
+            string sortedWord2 = new string(char2Array);
+
+            if (sortedWord1 == sortedWord2)
+            {
+                return true;
+            }
+        }
         return false;
     }
 
