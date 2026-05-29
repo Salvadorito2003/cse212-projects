@@ -1,4 +1,5 @@
 using System.Collections;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 public class LinkedList : IEnumerable<int>
 {
@@ -34,14 +35,16 @@ public class LinkedList : IEnumerable<int>
     {
         // TODO Problem 1
         Node newNode = new(value);
-        if (_head is null)
+        if (_tail is null)
         {
             _head = newNode;
             _tail = newNode;
+        } else
+        {
+            newNode.Prev = _tail;
+            _tail.Next = newNode;
+            _tail = newNode;
         }
-        newNode.Prev = _tail;
-        _tail.Next = newNode;
-        _tail = newNode;
     }
 
 
@@ -195,7 +198,12 @@ public class LinkedList : IEnumerable<int>
     public IEnumerable Reverse()
     {
         // TODO Problem 5
-        yield return 0; // replace this line with the correct yield return statement(s)
+        var curr = _tail; //Start at the end since this is a reverse iteration
+        while (curr is not null)
+        {
+            yield return curr.Data; //Provide (yield) each item to the user
+            curr = curr.Prev; //Go backwards in the linked list
+        } 
     }
 
     public override string ToString()
