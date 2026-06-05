@@ -151,6 +151,7 @@ public class WildcardBinaryTests
         Recursion.WildcardBinary("", results);
 
         var expected = new List<string> { "" };
+        
         CollectionAssert.AreEqual(expected, results);
     }
 
