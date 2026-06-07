@@ -17,14 +17,15 @@ public static class Recursion
     public static int SumSquaresRecursive(int n)
     {
         // TODO Start Problem 1
+        var result = 0;
         if (n <= 0)
         {
-            return 0;
+            return result;
         } else
         {
+            result += n * n;
             
-            return n + SumSquaresRecursive(n - 1);
-            
+            return result + SumSquaresRecursive((n - 1));
         }
     }
 
@@ -50,6 +51,20 @@ public static class Recursion
     public static void PermutationsChoose(List<string> results, string letters, int size, string word = "")
     {
         // TODO Start Problem 2
+        if (word.Length == size)
+            {
+                results.Add(word);
+                return;
+            }
+        else
+        {
+            for (var i = 0; i < letters.Length; i++)
+            {
+                var lettersLeft = letters.Remove(i, 1);
+                
+                PermutationsChoose(results, lettersLeft, size, word + letters[i]);
+            }
+        }
     }
 
     /// <summary>
@@ -117,7 +132,7 @@ public static class Recursion
         }
 
         // Solve using recursion
-        decimal ways = CountWaysToClimb(s - 1, remember) + CountWaysToClimb(s - 2, remember) + CountWaysToClimb(s - 3, remember);
+        decimal ways = CountWaysToClimb((s - 1), remember) + CountWaysToClimb((s - 2), remember) + CountWaysToClimb((s - 3), remember);
         remember [s] = ways;
         return ways;
     }
@@ -170,6 +185,31 @@ public static class Recursion
 
         // TODO Start Problem 5
         // ADD CODE HERE
+
+        currPath.Add((x, y));
+
+        if (maze.IsEnd(x, y))
+        {
+            results.Add(currPath.AsString());
+            return;
+        }
+
+        if (maze.IsValidMove(currPath, x + 1, y))
+        {
+            SolveMaze(results, maze, x + 1, y, new List<(int, int)>(currPath));
+        }
+        if (maze.IsValidMove(currPath, x, y + 1))
+        {
+            SolveMaze(results, maze, x, y + 1, new List<(int, int)>(currPath));
+        }
+        if (maze.IsValidMove(currPath, x - 1, y))
+        {
+            SolveMaze(results, maze, x - 1, y, new List<(int, int)>(currPath));
+        }
+        if (maze.IsValidMove(currPath, x, y - 1))
+        {
+            SolveMaze(results, maze, x, y - 1, new List<(int, int)>(currPath));
+        }
 
         // results.Add(currPath.AsString()); // Use this to add your path to the results array keeping track of complete maze solutions when you find the solution.
     }
