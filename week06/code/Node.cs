@@ -75,8 +75,8 @@ public class Node
         {
             return 0;
         }
-        var leftHeight = 0;
-        var rightHeight = 0;
+        int leftHeight = -1;
+        int rightHeight = -1;
         if (Left is not null)
         {
             leftHeight = 1 + Left.GetHeight();
