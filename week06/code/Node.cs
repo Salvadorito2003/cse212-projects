@@ -73,7 +73,7 @@ public class Node
         // TODO Start Problem 4
         if (Left == null && Right == null)
         {
-            return 0;
+            return 1;
         }
         int leftHeight = 0;
         int rightHeight = 0;
