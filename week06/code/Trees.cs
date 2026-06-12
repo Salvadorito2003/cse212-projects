@@ -58,6 +58,6 @@ public static class Trees
         bst.Insert(sortedNumbers[mid]);
 
         InsertMiddle(sortedNumbers, first, mid - 1, bst);
-        InsertMiddle(sortedNumbers, mid - 1, last, bst);
+        InsertMiddle(sortedNumbers, mid + 1, last, bst);
     }
 }
